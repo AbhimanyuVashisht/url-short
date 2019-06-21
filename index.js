@@ -3,7 +3,10 @@
 let express = require('express'),
     bodyParser = require('body-parser'),
     path = require('path'),
+    mongoose = require('mongoose'),
     app = express();
+
+require('./app/config/config');
 // Server Port
 const SERVER_PORT = 3000;
 const SERVER_IP = '0.0.0.0';
@@ -16,6 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '/app/static')));
+
 
 app.get('/ping', function (req, res) {
    return res.send('pong');
