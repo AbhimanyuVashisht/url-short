@@ -15,7 +15,7 @@ let getStatus = function (code) {
         case 'input_missing':
             status = {
                 code: code,
-                error: false,
+                error: true,
                 message: 'Required Input Missing'
             };
             break;
@@ -23,8 +23,16 @@ let getStatus = function (code) {
         case 'url_missing':
             status = {
                 code: code,
-                error: false,
+                error: true,
                 message: 'Missing Url'
+            };
+            break;
+
+        case 'shorten_url_already_present':
+            status = {
+                code: code,
+                error: false,
+                message: 'Shorten Url Already Present'
             };
             break;
 

@@ -28,15 +28,22 @@ let getOriginalUrl = function (params) {
 
 let createShortenedUrl = function (params) {
     return new Promise(async (resolve, reject) => {
-        let newUrl = new models.UrlShorten({
-            original_url: params.originalUrl,
-            shorten_url: shortId.generate(),
-            counter: 0
-        });
         try {
-            let result = (await newUrl.save()).shorten_url;
-            let response = status.getStatus('success');
-            response.data = params.fullUrl + result;
+            let it = await models.UrlShorten.findOne({ original_url: params.originalUrl});
+            let response;
+            if (!it) {
+                let newUrl = new models.UrlShorten({
+                    original_url: params.originalUrl,
+                    shorten_url: shortId.generate(),
+                    counter: 0
+                });
+                let result = (await newUrl.save()).shorten_url;
+                response = status.getStatus('success');
+                response.data = params.fullUrl + result;
+            } else {
+                response = status.getStatus('shorten_url_already_present');
+                response.data = it.shorten_url;
+            }
             return resolve(response);
         } catch (e) {
             return reject(e);
