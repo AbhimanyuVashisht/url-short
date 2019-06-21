@@ -51,7 +51,26 @@ let createShortenedUrl = function (params) {
     });
 };
 
+let getShortenURLStatus = function (params) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let it = await models.UrlShorten.findOne({ shorten_url: params.shortenUrl});
+            let response;
+            if (it) {
+                response = status.getStatus('success');
+                response.data = it;
+            } else {
+                response = status.getStatus('url_missing');
+            }
+            return resolve(response);
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
 module.exports = {
     getOriginalUrl: getOriginalUrl,
-    createShortenedUrl: createShortenedUrl
+    createShortenedUrl: createShortenedUrl,
+    getShortenURLStatus: getShortenURLStatus
 };

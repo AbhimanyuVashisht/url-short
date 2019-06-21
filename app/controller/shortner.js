@@ -36,7 +36,21 @@ let createShortenedUrl = async function (req, res, next) {
     }
 };
 
+let getShortenURLStatus = async function (req, res, next) {
+    if (!req.query.url) {
+        return next(status.getStatus('input_missing'));
+    }
+    let params = {};
+    params.shortenUrl = req.body.url;
+    try {
+        return res.json(await services.getShortenURLStatus(params));
+    } catch (e) {
+        return next(e);
+    }
+};
+
 module.exports = {
     getOriginalUrl: getOriginalUrl,
-    createShortenedUrl: createShortenedUrl
+    createShortenedUrl: createShortenedUrl,
+    getShortenURLStatus: getShortenURLStatus
 };
