@@ -28,7 +28,7 @@ let createShortenedUrl = async function (req, res, next) {
     }
     let params = {};
     params.originalUrl = req.body.original_url;
-    params.baseUrl = req.get('host');
+    params.fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     try {
         return res.json(await services.createShortenedUrl(params));
     } catch (e) {

@@ -36,7 +36,7 @@ let createShortenedUrl = function (params) {
         try {
             let result = (await newUrl.save()).shorten_url;
             let response = status.getStatus('success');
-            response.data = 'https://' + params.baseUrl + '/' + result;
+            response.data = params.fullUrl + result;
             return resolve(response);
         } catch (e) {
             return reject(e);
