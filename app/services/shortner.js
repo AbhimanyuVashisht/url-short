@@ -42,7 +42,7 @@ let createShortenedUrl = function (params) {
                 response.data = params.fullUrl + result;
             } else {
                 response = status.getStatus('shorten_url_already_present');
-                response.data = it.shorten_url;
+                response.data = params.fullUrl + it.shorten_url;
             }
             return resolve(response);
         } catch (e) {

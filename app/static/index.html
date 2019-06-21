@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Url - Shortner</title>
+    <link rel="stylesheet" href="stylechat.css">
+    <!--Jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+</head>
+<body>
+<div class="form">
+    <h2 class="cname">Url- Shortner</h2>
+    <h3 class="title">Enter the Url?</h3>
+    <form>
+        <input id="urlInput" type="text"/>
+        <button id="submit" type="button">Submit</button>
+    </form>
+    <p id="result"></p>
+</div>
+
+<script>
+    $(function() {
+        let $urlInput = $('#urlInput');
+        let $submitButton = $('#submit');
+        let $resultP = $('#result');
+
+        $submitButton.click(function handleSubmit() {
+            let url = $urlInput.val();
+            $.post('/api/', {
+                original_url: url
+            }).then((response) => {
+                $resultP.empty();
+                $resultP.append(response.message);
+                $resultP.append('<br>');
+                $resultP.append(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        });
+    });
+</script>
+</body>
+</html>
