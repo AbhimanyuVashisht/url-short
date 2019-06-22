@@ -10,7 +10,7 @@ require('./app/config/config');
 let shortnerRouter = require('./app/routes/shortner');
 
 // Server Port
-const SERVER_PORT = 3000;
+const SERVER_PORT = process.env.PORT || 3000;
 const SERVER_IP = '0.0.0.0';
 
 // URL Encoded body parser
