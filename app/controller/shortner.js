@@ -41,7 +41,7 @@ let getShortenURLStatus = async function (req, res, next) {
         return next(status.getStatus('input_missing'));
     }
     let params = {};
-    params.shortenUrl = req.body.url;
+    params.shortenUrl = req.query.url;
     try {
         return res.json(await services.getShortenURLStatus(params));
     } catch (e) {
